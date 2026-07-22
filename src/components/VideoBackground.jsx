@@ -1,4 +1,5 @@
-﻿import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import MobileAnimativeBg from "./MobileAnimativeBg"
 
 const FRAMES = [
   "/frames/frame-00-00.png",
@@ -85,6 +86,18 @@ export default function VideoBackground() {
   const canvasRef = useRef(null)
   const [isDark,  setIsDark]  = useState(false)
   const [visible, setVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== "undefined" && window.innerWidth <= 768
+  })
+
+  // ── Responsive window resize listener ──────────────────────────────────────
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener("resize", handleResize, { passive: true })
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const decoded    = useRef(new Array(TOTAL).fill(null))
   const stateRef   = useRef({
@@ -230,6 +243,10 @@ export default function VideoBackground() {
       if (s.rafId) cancelAnimationFrame(s.rafId)
     }
   }, [])
+
+  if (isMobile) {
+    return <MobileAnimativeBg />
+  }
 
   return (
     <div

@@ -136,6 +136,12 @@ body {
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .bg-video-container {
+    display: none !important;
+  }
+}
+
 /* Canvas-based background — drawn via JS, no img src changes = zero blink */
 .bg-frame-canvas {
   position: absolute;
