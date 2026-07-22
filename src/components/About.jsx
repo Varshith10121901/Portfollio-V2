@@ -160,15 +160,14 @@ export default function About() {
   ]
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: { opacity: 0, y: 48 },
     visible: (index) => ({
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
-        stiffness: 85,
-        damping: 13,
-        delay: index * 0.1,
+        duration: 0.65,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.12,
       },
     }),
   }

@@ -185,20 +185,20 @@ export default function Projects() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.16,
+        delayChildren: 0.08,
       }
     }
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 35 },
+    hidden: { opacity: 0, y: 48 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
-        stiffness: 75,
-        damping: 14
+        duration: 0.65,
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   }

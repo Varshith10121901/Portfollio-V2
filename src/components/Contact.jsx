@@ -189,10 +189,10 @@ export default function Contact() {
         {/* Left Column: Contact Form */}
         <MotionGlowCard
           className="contact-form-card"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 48 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="contact-form-container">
             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', textAlign: 'left', color: 'var(--text-bright)' }}>
@@ -207,10 +207,10 @@ export default function Contact() {
           {/* Achievements Card */}
           <MotionGlowCard
             className="info-card-wrapper"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, y: 48 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.65, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="info-card">
               <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -247,10 +247,10 @@ export default function Contact() {
 
           {/* Contact Details Card */}
           <MotionGlowCard
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 48 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.65, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
           >
             <div style={{ padding: '2rem', textAlign: 'left' }}>
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem', color: 'var(--text-bright)' }}>
