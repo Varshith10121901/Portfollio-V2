@@ -79,7 +79,7 @@ const KNOWLEDGE_BASE = [
               "• **DAA Program Assignment**: Design and Analysis of Algorithms Program. You can view his public access file here: [DAA Public File Link](https://drive.google.com/file/d/1H3qnlom7t-PVezOBnvYEYiUfKGXqjGtR/view?usp=sharing)"
   },
   {
-    keywords: ['contact', 'email', 'phone', 'location', 'connect', 'social', 'linkedin', 'github', 'instagram', 'g.dev', 'google developer', 'developer profile'],
+    keywords: ['contact', 'email', 'phone', 'location', 'connect', 'social', 'linkedin', 'github', 'twitter', 'x', 'g.dev', 'google developer', 'developer profile'],
     response: "You can easily connect with Varshith through these portals:\n\n" +
               "• **Email**: varshithkumar815@gmail.com\n" +
               "• **Phone**: +91 7022756962\n" +
@@ -87,7 +87,7 @@ const KNOWLEDGE_BASE = [
               "• **Google Developer Profile**: [Profile Link](https://g.dev/thevk)\n" +
               "• **LinkedIn**: [Profile Link](https://www.linkedin.com/in/varshith-kumar-anand-7479b42a6)\n" +
               "• **GitHub**: [Profile Link](https://github.com/Varshith10121901)\n" +
-              "• **Instagram**: [@mr___desirable_____](https://www.instagram.com/mr___desirable_____)\n\n" +
+              "• **Twitter / X**: [@vars84141](https://x.com/vars84141)\n\n" +
               "You can also drop a message using the Contact Form on the page, and he will receive an instant email notification!"
   },
   {
