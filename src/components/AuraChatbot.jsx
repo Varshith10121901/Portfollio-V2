@@ -83,7 +83,7 @@ const KNOWLEDGE_BASE = [
     response: "You can easily connect with Varshith through these portals:\n\n" +
               "• **Email**: varshithkumar815@gmail.com\n" +
               "• **Phone**: +91 7022756962\n" +
-              "• **Location**: Hubballi / Bangalore, Karnataka\n" +
+              "• **Location**: Hubballi, Karnataka\n" +
               "• **Google Developer Profile**: [Profile Link](https://g.dev/thevk)\n" +
               "• **LinkedIn**: [Profile Link](https://www.linkedin.com/in/varshith-kumar-anand-7479b42a6)\n" +
               "• **GitHub**: [Profile Link](https://github.com/Varshith10121901)\n" +
@@ -102,7 +102,7 @@ const KNOWLEDGE_BASE = [
               "• **Specialization**: Generative AI, Agentic AI systems, RAG pipelines, and deploying intelligent backend services on GCP.\n" +
               "• **Flagship Project**: **AIAS** — a live AI SaaS platform for workflow automation and intelligent chatbots. [Try it live](https://aiasapp.me/)\n" +
               "• **Hackathons**: GDG Buildathon (Reva University), OpenAI x NxtWave Buildathon, Bank of India Hackathon, Google Cohort 1.\n" +
-              "• **Location**: Hubballi / Bengaluru, Karnataka, India.\n\n" +
+              "• **Location**: Hubballi, Karnataka, India.\n\n" +
               "Ask me about his **projects**, **skills**, **certifications**, or how to **contact** him!"
   },
   {

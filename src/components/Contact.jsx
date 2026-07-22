@@ -292,7 +292,7 @@ export default function Contact() {
                   </div>
                   <div className="info-text">
                     <span className="info-label">Location</span>
-                    <span className="info-val">Hubballi / Bangalore, Karnataka</span>
+                    <span className="info-val">Hubballi, Karnataka</span>
                   </div>
                 </div>
               </div>
