@@ -28,17 +28,16 @@ export default function IntroScreen({ onComplete }) {
   const wordVariants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+      transition: { staggerChildren: 0.08, delayChildren: 0.1 },
     },
   }
 
   const letterVariants = {
-    hidden: { y: 24, opacity: 0, filter: 'blur(6px)' },
+    hidden: { y: 16, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      filter: 'blur(0px)',
-      transition: { type: 'spring', stiffness: 140, damping: 16 },
+      transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
     },
   }
 
@@ -49,7 +48,7 @@ export default function IntroScreen({ onComplete }) {
         initial={{ y: 0 }}
         animate={
           phase === 'exit'
-            ? { y: '-100%', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }
+            ? { y: '-100%', transition: { duration: 0.55, ease: [0.76, 0, 0.24, 1] } }
             : { y: 0 }
         }
         style={{
@@ -61,6 +60,8 @@ export default function IntroScreen({ onComplete }) {
           justifyContent: 'center',
           background: 'var(--bg, #050507)',
           overflow: 'hidden',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
         }}
       >
         {/* faint scanline / grid texture to match the wireframe hero identity */}
@@ -89,7 +90,11 @@ export default function IntroScreen({ onComplete }) {
                     key={cIdx}
                     variants={letterVariants}
                     className={wIdx >= 2 ? 'intro-word-accent' : 'intro-word-grey'}
-                    style={{ display: 'inline-block' }}
+                    style={{
+                      display: 'inline-block',
+                      willChange: 'transform, opacity',
+                      transform: 'translateZ(0)'
+                    }}
                   >
                     {char}
                   </motion.span>
