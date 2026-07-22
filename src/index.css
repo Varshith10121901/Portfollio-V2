@@ -1832,7 +1832,7 @@ section.visible {
   50% { stroke: currentColor; }
 }
 
-/* Aura-Mini Expanding Bottom-Centered Chatbot Styles (100% Solid Opaque Pure White Background) */
+/* Aura-Mini Expanding Bottom-Centered Chatbot Styles (Pure White in Light Mode, Pure Black in Dark Mode) */
 .aura-chatbot-container {
   position: fixed;
   bottom: 1.5rem;
@@ -1857,13 +1857,13 @@ section.visible {
 }
 
 :root.dark .aura-chatbot-container {
-  background-color: #ffffff !important;
-  background: #ffffff !important;
+  background-color: #000000 !important;
+  background: #000000 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8) !important;
 }
 
 .aura-chatbot-container.collapsed {
@@ -1876,7 +1876,7 @@ section.visible {
   width: 460px;
   height: 500px;
   border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35) !important;
 }
 
 .aura-chatbot-inner {
@@ -1888,14 +1888,16 @@ section.visible {
   padding: 0 !important;
   position: relative;
   z-index: 2;
+  background-color: #ffffff !important;
   background: #ffffff !important;
   opacity: 1 !important;
   color: #0f172a !important;
 }
 
 :root.dark .aura-chatbot-inner {
-  background: #ffffff !important;
-  color: #0f172a !important;
+  background-color: #000000 !important;
+  background: #000000 !important;
+  color: #f8fafc !important;
 }
 
 /* Chat Header */
@@ -1910,8 +1912,8 @@ section.visible {
 }
 
 :root.dark .aura-chatbot-header {
-  background: #f8fafc !important;
-  border-bottom-color: #e2e8f0 !important;
+  background: #08080a !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 @keyframes fade-in-hdr {
@@ -1926,6 +1928,10 @@ section.visible {
   color: #0f172a !important;
 }
 
+:root.dark .aura-chatbot-title {
+  color: #f8fafc !important;
+}
+
 .aura-badge {
   font-size: 0.68rem;
   font-weight: 700;
@@ -1934,6 +1940,12 @@ section.visible {
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
   border: 1px solid #bae6fd !important;
+}
+
+:root.dark .aura-badge {
+  background: rgba(34, 211, 238, 0.15) !important;
+  color: #22d3ee !important;
+  border-color: rgba(34, 211, 238, 0.3) !important;
 }
 
 .aura-chatbot-close-btn {
@@ -1949,9 +1961,18 @@ section.visible {
   transition: var(--transition-smooth);
 }
 
+:root.dark .aura-chatbot-close-btn {
+  color: #94a3b8 !important;
+}
+
 .aura-chatbot-close-btn:hover {
   background: #e2e8f0 !important;
   color: #0f172a !important;
+}
+
+:root.dark .aura-chatbot-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
 }
 
 /* Chat Scroll Area (Solid 100% Opaque White Background) */
@@ -1962,12 +1983,14 @@ section.visible {
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
+  background-color: #ffffff !important;
   background: #ffffff !important;
   opacity: 1 !important;
 }
 
 :root.dark .aura-chatbot-body {
-  background: #ffffff !important;
+  background-color: #000000 !important;
+  background: #000000 !important;
 }
 
 .aura-chat-bubble-container {
@@ -2015,9 +2038,9 @@ section.visible {
 }
 
 :root.dark .aura-chat-bubble.bot {
-  background: #f1f5f9 !important;
-  border-color: #e2e8f0 !important;
-  color: #0f172a !important;
+  background: #11131c !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
 }
 
 .aura-chat-bubble.bot p,
@@ -2027,6 +2050,15 @@ section.visible {
 .aura-chat-bubble.bot li,
 .aura-chat-bubble.bot a {
   color: #0f172a !important;
+}
+
+:root.dark .aura-chat-bubble.bot p,
+:root.dark .aura-chat-bubble.bot strong,
+:root.dark .aura-chat-bubble.bot div,
+:root.dark .aura-chat-bubble.bot span,
+:root.dark .aura-chat-bubble.bot li,
+:root.dark .aura-chat-bubble.bot a {
+  color: #f8fafc !important;
 }
 
 .aura-chat-bubble.user {
@@ -2059,8 +2091,8 @@ section.visible {
 }
 
 :root.dark .aura-chat-loader-bubble {
-  background: #f1f5f9 !important;
-  border-color: #e2e8f0 !important;
+  background: #11131c !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .aura-loading-svg-wrapper {
@@ -2084,15 +2116,21 @@ section.visible {
   color: #64748b !important;
 }
 
+:root.dark .aura-loader-label {
+  color: #94a3b8 !important;
+}
+
 /* Chat Input Bar Footer (Solid Opaque White) */
 .aura-chatbot-form {
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: #ffffff !important;
   background: #ffffff !important;
   opacity: 1 !important;
 }
 
 :root.dark .aura-chatbot-form {
-  background: #ffffff !important;
+  background-color: #000000 !important;
+  background: #000000 !important;
 }
 
 .aura-chatbot-form.collapsed-form {
@@ -2105,12 +2143,14 @@ section.visible {
 .aura-chatbot-form.expanded-form {
   padding: 0.75rem 1rem 0.85rem;
   border-top: 1px solid #e2e8f0 !important;
+  background-color: #ffffff !important;
   background: #ffffff !important;
 }
 
 :root.dark .aura-chatbot-form.expanded-form {
-  border-top-color: #e2e8f0 !important;
-  background: #ffffff !important;
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: #000000 !important;
+  background: #000000 !important;
 }
 
 .aura-chatbot-input-container {
@@ -2126,8 +2166,8 @@ section.visible {
 }
 
 :root.dark .aura-chatbot-input-container {
-  background: #f8fafc !important;
-  border-color: #cbd5e1 !important;
+  background: #11131c !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .collapsed-form .aura-chatbot-input-container {
@@ -2155,11 +2195,15 @@ section.visible {
 }
 
 :root.dark .aura-chatbot-input-container input {
-  color: #0f172a !important;
+  color: #f8fafc !important;
 }
 
 .aura-chatbot-input-container input::placeholder {
   color: #64748b !important;
+}
+
+:root.dark .aura-chatbot-input-container input::placeholder {
+  color: #94a3b8 !important;
 }
 
 .aura-chatbot-send-btn {
