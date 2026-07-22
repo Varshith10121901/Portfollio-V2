@@ -120,7 +120,7 @@ export default function Navbar() {
                   <span className="swarm-card-badge">Bernabeu Edition</span>
                 </div>
                 <p className="swarm-card-desc">
-                  SwarmAI Bernabeu Edition is a decentralized crowd intelligence and smart stadium navigation platform designed for high-capacity venues like the Estadio Santiago Bernabeu (80,000+ capacity). By transforming attendee smartphones into active nodes in a peer-to-peer AI swarm network, SwarmAI resolves stadium bottleneck congestion intelligently.
+                  SwarmAI Bernabeu Edition is a decentralized crowd intelligence and smart stadium navigation platform built for high-capacity venues. By converting attendee smartphones into peer-to-peer AI swarm nodes, it dynamically reroutes foot traffic, resolves gate bottlenecks, and optimizes real-time arena evacuation safety.
                 </p>
               </div>
             </div>
