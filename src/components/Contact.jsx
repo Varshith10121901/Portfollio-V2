@@ -44,6 +44,13 @@ function ContactForm() {
     }
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      e.currentTarget.form?.requestSubmit()
+    }
+  }
+
   return (
     <AnimatePresence mode="wait">
       {status !== 'success' ? (
@@ -67,7 +74,7 @@ function ContactForm() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              onKeyDown={(e) => e.stopPropagation()}
+              onKeyDown={handleKeyDown}
               required
               placeholder="Your Name"
               disabled={status === 'sending'}
@@ -82,7 +89,7 @@ function ContactForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              onKeyDown={(e) => e.stopPropagation()}
+              onKeyDown={handleKeyDown}
               required
               placeholder="name@example.com"
               disabled={status === 'sending'}
@@ -97,7 +104,7 @@ function ContactForm() {
               rows="5"
               value={formData.message}
               onChange={handleChange}
-              onKeyDown={(e) => e.stopPropagation()}
+              onKeyDown={handleKeyDown}
               required
               placeholder="Describe your project, timeline, or requirements..."
               disabled={status === 'sending'}
