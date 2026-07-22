@@ -1,4 +1,4 @@
-﻿"""
+"""
 run.py - One-command launcher for Varshith Portfolio
 -----------------------------------------------------
 Starts both servers concurrently:
@@ -32,6 +32,10 @@ if sys.platform == "win32":
 else:
     VENV_PYTHON = os.path.join(BACKEND_DIR, ".venv", "bin", "python")
     NPM_CMD = "npm"
+
+# Fallback to current system Python interpreter if virtual environment is not created yet
+if not os.path.exists(VENV_PYTHON):
+    VENV_PYTHON = sys.executable
 
 RESET  = "\033[0m"
 CYAN   = "\033[96m"
