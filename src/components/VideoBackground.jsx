@@ -244,31 +244,34 @@ export default function VideoBackground() {
     }
   }, [])
 
-  if (isMobile) {
-    return <MobileAnimativeBg />
-  }
-
   return (
-    <div
-      className="bg-video-container"
-      style={{ opacity: visible ? 1 : 0, transition: "opacity 1s ease" }}
-    >
-      <canvas
-        ref={canvasRef}
+    <>
+      {isMobile && <MobileAnimativeBg />}
+      <div
+        className="bg-video-container"
         style={{
-          position:        "absolute",
-          top:             0,
-          left:            0,
-          width:           "100%",
-          height:          "100%",
-          display:         "block",
-          imageRendering:  "auto",
-          filter:          "brightness(1.25) contrast(1.05)",
-          willChange:      "transform",
-          transform:       "translateZ(0)",
+          opacity: visible && !isMobile ? 1 : 0,
+          display: isMobile ? 'none' : 'block',
+          transition: "opacity 1s ease"
         }}
-      />
-      <div className={`bg-video-overlay ${isDark ? "dark" : "light"}`} />
-    </div>
+      >
+        <canvas
+          ref={canvasRef}
+          style={{
+            position:        "absolute",
+            top:             0,
+            left:            0,
+            width:           "100%",
+            height:          "100%",
+            display:         "block",
+            imageRendering:  "auto",
+            filter:          "brightness(1.25) contrast(1.05)",
+            willChange:      "transform",
+            transform:       "translateZ(0)",
+          }}
+        />
+        <div className={`bg-video-overlay ${isDark ? "dark" : "light"}`} />
+      </div>
+    </>
   )
 }

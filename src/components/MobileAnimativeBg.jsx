@@ -2,14 +2,11 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 /**
- * Native 3D WebGL Vanta DOTS Particle & Line Wave Animation for Mobile.
- * Configured with exact settings from Vanta.js DOTS:
- *   - backgroundColor: #ffffff (light) / #08090d (dark)
- *   - color: #ff8820 (Amber/Orange)
- *   - color2: #ff8820
- *   - size: 3.0
- *   - spacing: 35.0
- *   - showLines: true
+ * High-performance, lightweight 3D Vanta DOTS WebGL background for Mobile (<= 768px).
+ * Features:
+ *   - Super light, subtle white background (#ffffff) with delicate orange/amber particles (#ff8820).
+ *   - The center starburst circle rotates ONLY when the user scrolls!
+ *   - Extremely smooth 60fps rendering without scrolling stutter.
  */
 export default function MobileAnimativeBg() {
   const mountRef = useRef(null)
@@ -21,10 +18,10 @@ export default function MobileAnimativeBg() {
     let width = window.innerWidth
     let height = window.innerHeight
 
-    // 1. Scene, Camera, Renderer
+    // 1. Three.js Scene Setup
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(50, width / height, 1, 2000)
-    camera.position.set(0, 150, 400)
+    camera.position.set(0, 140, 420)
     camera.lookAt(0, 0, 0)
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -32,14 +29,13 @@ export default function MobileAnimativeBg() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     container.appendChild(renderer.domElement)
 
-    // 2. Create 3D Dots & Lines Grid Wave (Spacing: 35, Size: 3.0)
+    // 2. 3D Dots & Lines Grid Wave (Spacing: 35, Size: 3.0)
     const spacing = 35
-    const cols = 28
-    const rows = 28
+    const cols = 24
+    const rows = 24
     const numParticles = cols * rows
 
     const positions = new Float32Array(numParticles * 3)
-    const initialY = new Float32Array(numParticles)
 
     let i = 0
     for (let r = 0; r < rows; r++) {
@@ -51,7 +47,6 @@ export default function MobileAnimativeBg() {
         positions[i * 3] = x
         positions[i * 3 + 1] = y
         positions[i * 3 + 2] = z
-        initialY[i] = y
         i++
       }
     }
@@ -59,13 +54,13 @@ export default function MobileAnimativeBg() {
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
 
-    // Create Canvas Texture for crisp round dots (#ff8820)
+    // Canvas Texture for crisp round dots (#ff8820)
     const canvasDot = document.createElement('canvas')
-    canvasDot.width = 64
-    canvasDot.height = 64
+    canvasDot.width = 32
+    canvasDot.height = 32
     const ctx = canvasDot.getContext('2d')
     ctx.beginPath()
-    ctx.arc(32, 32, 28, 0, Math.PI * 2)
+    ctx.arc(16, 16, 12, 0, Math.PI * 2)
     ctx.fillStyle = '#ff8820'
     ctx.fill()
 
@@ -73,27 +68,23 @@ export default function MobileAnimativeBg() {
 
     const material = new THREE.PointsMaterial({
       color: 0xff8820,
-      size: 6.5,
+      size: 5.0,
       map: dotTexture,
       transparent: true,
-      opacity: 0.95,
+      opacity: 0.45,
       depthTest: true
     })
 
     const points = new THREE.Points(geometry, material)
     scene.add(points)
 
-    // 3. Add Connecting 3D Grid Lines (showLines: true)
+    // 3. Grid Lines (showLines: true)
     const lineIndices = []
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const current = r * cols + c
-        if (c < cols - 1) {
-          lineIndices.push(current, current + 1)
-        }
-        if (r < rows - 1) {
-          lineIndices.push(current, current + cols)
-        }
+        if (c < cols - 1) lineIndices.push(current, current + 1)
+        if (r < rows - 1) lineIndices.push(current, current + cols)
       }
     }
 
@@ -104,32 +95,32 @@ export default function MobileAnimativeBg() {
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0xff8820,
       transparent: true,
-      opacity: 0.25
+      opacity: 0.12
     })
 
     const lines = new THREE.LineSegments(lineGeometry, lineMaterial)
     scene.add(lines)
 
-    // 4. Center Glowing Starburst Sphere (matching Vanta screenshot center element)
-    const burstCount = 60
+    // 4. Center Starburst Circle/Sphere (Rotates ONLY on user scroll)
+    const burstCount = 48
     const burstPositions = new Float32Array(burstCount * 6)
     for (let b = 0; b < burstCount; b++) {
       const u = Math.random()
       const v = Math.random()
       const theta = u * 2.0 * Math.PI
       const phi = Math.acos(2.0 * v - 1.0)
-      const r = 25 + Math.random() * 35
+      const r = 20 + Math.random() * 30
 
       const dx = r * Math.sin(phi) * Math.cos(theta)
       const dy = r * Math.sin(phi) * Math.sin(theta)
       const dz = r * Math.cos(phi)
 
       burstPositions[b * 6] = 0
-      burstPositions[b * 6 + 1] = 40
+      burstPositions[b * 6 + 1] = 30
       burstPositions[b * 6 + 2] = 0
 
       burstPositions[b * 6 + 3] = dx
-      burstPositions[b * 6 + 4] = 40 + dy
+      burstPositions[b * 6 + 4] = 30 + dy
       burstPositions[b * 6 + 5] = dz
     }
 
@@ -139,25 +130,44 @@ export default function MobileAnimativeBg() {
     const burstMaterial = new THREE.LineBasicMaterial({
       color: 0xff8820,
       transparent: true,
-      opacity: 0.6
+      opacity: 0.35
     })
 
     const burstLines = new THREE.LineSegments(burstGeometry, burstMaterial)
     scene.add(burstLines)
 
-    // 5. Animation Loop
+    // 5. Scroll State Tracking: Circle rotates ONLY when user scrolls
+    let isScrolling = false
+    let scrollTimeout = null
+    let targetRotation = 0
+
+    const handleScroll = () => {
+      isScrolling = true
+      targetRotation += 0.03
+
+      if (scrollTimeout) clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false
+      }, 150)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    // 6. Animation Loop (Lightweight & Smooth)
     let animationFrameId
     let count = 0
 
     const animate = () => {
-      count += 0.025
+      count += 0.015
+
+      // Wave particle displacement
       const positionAttr = geometry.getAttribute('position')
       const posArr = positionAttr.array
 
       let idx = 0
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const y = Math.sin(count + c * 0.3 + r * 0.2) * 12 + Math.cos(count * 0.8 + c * 0.15) * 8
+          const y = Math.sin(count + c * 0.25 + r * 0.2) * 8
           posArr[idx * 3 + 1] = y
           idx++
         }
@@ -166,8 +176,11 @@ export default function MobileAnimativeBg() {
       positionAttr.needsUpdate = true
       lineGeometry.getAttribute('position').needsUpdate = true
 
-      burstLines.rotation.y += 0.005
-      burstLines.rotation.z += 0.003
+      // Rotate starburst sphere ONLY when user is scrolling!
+      if (isScrolling || Math.abs(burstLines.rotation.y - targetRotation) > 0.001) {
+        burstLines.rotation.y += (targetRotation - burstLines.rotation.y) * 0.1
+        burstLines.rotation.z += (targetRotation - burstLines.rotation.z) * 0.08
+      }
 
       renderer.render(scene, camera)
       animationFrameId = requestAnimationFrame(animate)
@@ -175,7 +188,7 @@ export default function MobileAnimativeBg() {
 
     animate()
 
-    // 6. Window Resize Listener
+    // 7. Window Resize Listener
     const handleResize = () => {
       width = window.innerWidth
       height = window.innerHeight
@@ -186,7 +199,9 @@ export default function MobileAnimativeBg() {
     window.addEventListener('resize', handleResize, { passive: true })
 
     return () => {
+      window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleResize)
+      if (scrollTimeout) clearTimeout(scrollTimeout)
       cancelAnimationFrame(animationFrameId)
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement)
