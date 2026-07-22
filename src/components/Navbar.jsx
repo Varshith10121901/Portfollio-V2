@@ -100,15 +100,30 @@ export default function Navbar() {
             </button>
           </li>
           <li>
-            <a 
-              href="https://aiasapp.me/" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="btn-secondary"
-              style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', textDecoration: 'none' }}
-            >
-              Launch AIAS
-            </a>
+            <div className="swarm-btn-wrapper">
+              <a 
+                href="https://stadium-swarmai.azurewebsites.net/dashboard" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="btn-secondary"
+                style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', textDecoration: 'none' }}
+              >
+                Launch Swarm AI
+              </a>
+
+              {/* Hover Preview Card */}
+              <div className="swarm-hover-card">
+                <div className="swarm-card-header">
+                  <span className="swarm-card-title">
+                    ⚡ Stadium-Controller
+                  </span>
+                  <span className="swarm-card-badge">Bernabeu Edition</span>
+                </div>
+                <p className="swarm-card-desc">
+                  SwarmAI Bernabeu Edition is a decentralized crowd intelligence and smart stadium navigation platform designed for high-capacity venues like the Estadio Santiago Bernabeu (80,000+ capacity). By transforming attendee smartphones into active nodes in a peer-to-peer AI swarm network, SwarmAI resolves stadium bottleneck congestion intelligently.
+                </p>
+              </div>
+            </div>
           </li>
         </ul>
 
@@ -152,14 +167,14 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="https://aiasapp.me/"
+                href="https://stadium-swarmai.azurewebsites.net/dashboard"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-secondary"
                 style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', textDecoration: 'none' }}
                 onClick={() => setIsOpen(false)}
               >
-                Launch AIAS
+                Launch Swarm AI
               </a>
             </li>
           </ul>

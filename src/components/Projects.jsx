@@ -22,17 +22,17 @@ const MotionGlowCard = motion(GlowCard)
 export default function Projects() {
   const projectsData = [
     {
-      title: 'AIAS – AI SaaS & Workflow Automation',
+      title: 'SwarmAI Bernabeu Edition (Stadium-Controller)',
       date: '2026',
       live: true,
-      description: 'An AI SaaS platform that enables businesses to automate workflows using AI agents, intelligent chatbots, and scalable business automation from a unified dashboard.',
+      description: 'SwarmAI Bernabeu Edition is a decentralized crowd intelligence and smart stadium navigation platform designed for high-capacity venues like the Estadio Santiago Bernabeu (80,000+ capacity). By transforming attendee smartphones into active nodes in a peer-to-peer AI swarm network, SwarmAI resolves stadium bottleneck congestion intelligently.',
       points: [
-        'Unified dashboard for orchestrating workflows with intelligent chatbots and AI agents.',
-        'Secure user authentication, API token usage monitoring, and scalable business logic.',
-        'Fast, modular microservices designed for enterprise deployment and rapid integrations.'
+        'Decentralized crowd intelligence transforming smartphones into active P2P AI swarm nodes.',
+        'Intelligent real-time stadium bottleneck congestion resolution for high-capacity venues (80,000+).',
+        'Smart navigation dashboard deployed on Microsoft Azure for live crowd flow control.'
       ],
       image: '/projects/AIAS image.png',
-      linkDemo: 'https://aiasapp.me/',
+      linkDemo: 'https://stadium-swarmai.azurewebsites.net/dashboard',
       linkRepo: 'https://github.com/Varshith10121901/AIAS',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20, color: 'var(--secondary)' }}>

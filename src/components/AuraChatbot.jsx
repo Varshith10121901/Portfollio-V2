@@ -4,13 +4,13 @@ const KNOWLEDGE_BASE = [
   {
     keywords: ['project', 'work', 'portfolio', 'code', 'repo', 'github', 'links'],
     response: "Hii! Varshith has built several exciting AI and Full Stack applications that showcase his expertise in Generative AI, RAG systems, and cloud deployments. Here is a quick overview:\n\n" +
-              "• **AIAS (AI SaaS & Workflow Automation)**: Deployed on Google Cloud. It allows businesses to automate workflows using intelligent agents and custom chatbots. [Source Code](https://github.com/Varshith10121901/AIAS) | [Live Demo](https://aiasapp.me/)\n" +
+              "• **SwarmAI Bernabeu Edition (Stadium-Controller)**: A decentralized crowd intelligence platform for smart stadium navigation. [Live Demo](https://stadium-swarmai.azurewebsites.net/dashboard) | [Source Code](https://github.com/Varshith10121901/AIAS)\n" +
               "• **Images Scanner Preprocessing Pipeline**: A computer vision pipeline that automates image enhancement and dataset curation before CNN training. [Source Code](https://github.com/Varshith10121901/Images-Scanner-Before-Model-Training)\n" +
               "• **Agrilens (GDG Hackathon)**: A leaf disease diagnostics platform utilizing computer vision, built during the 30-hour GDG Hackathon. [Source Code](https://github.com/Varshith10121901/Agrilens-GDG-Hackathon)\n" +
               "• **Bank of India Fraud Detection**: An ML anomaly classifier built during the Bank of India Hackathon. [Source Code](https://github.com/Varshith10121901/Bank-of-India-Hackathon)\n" +
               "• **AURA Lite (Google Cohort 1)**: An agricultural assistant integrating Gemini AI with FastAPI and Cloud Run. [Source Code](https://github.com/Varshith10121901/Google-Cohort-1)\n" +
               "• **Promptwar Challenge 3**: Advanced prompt engineering and chains. [Source Code](https://github.com/Varshith10121901/Promptwar-challenge-3)\n\n" +
-              "Which of these would you like to discuss further? Ask me about a specific project like 'AIAS' or 'Agrilens'!"
+              "Which of these would you like to discuss further? Ask me about a specific project like 'SwarmAI' or 'Agrilens'!"
   },
   {
     keywords: ['aias', 'saas', 'workflow', 'automation'],

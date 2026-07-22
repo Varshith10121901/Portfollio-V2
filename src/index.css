@@ -165,6 +165,87 @@ body {
   background: rgba(7, 8, 12, 0.60);
 }
 
+/* Swarm AI Button Hover Preview Tooltip Card */
+.swarm-btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.swarm-hover-card {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  width: 320px;
+  max-width: 88vw;
+  background: var(--card-bg, rgba(15, 16, 24, 0.96));
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(139, 92, 246, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  pointer-events: none;
+  text-align: left;
+}
+
+.swarm-hover-card::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 24px;
+  width: 10px;
+  height: 10px;
+  background: var(--card-bg, rgba(15, 16, 24, 0.96));
+  border-top: 1px solid rgba(139, 92, 246, 0.35);
+  border-left: 1px solid rgba(139, 92, 246, 0.35);
+  transform: rotate(45deg);
+}
+
+.swarm-btn-wrapper:hover .swarm-hover-card,
+.swarm-btn-wrapper:focus-within .swarm-hover-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.swarm-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.swarm-card-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-bright, #ffffff);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.swarm-card-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 99px;
+  background: rgba(34, 211, 238, 0.15);
+  color: var(--secondary, #22d3ee);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.swarm-card-desc {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+}
+
 #root {
   width: 100%;
   max-width: 1200px;
