@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 /**
- * High-performance, lightweight 3D Vanta DOTS WebGL background for Mobile (<= 768px).
- * Features:
- *   - Super light, subtle white background (#ffffff) with delicate orange/amber particles (#ff8820).
- *   - The center starburst circle rotates ONLY when the user scrolls!
- *   - Extremely smooth 60fps rendering without scrolling stutter.
+ * Mobile Interactive Splitting Dots Background:
+ *   - Light Mode Color: Light Blue (#38bdf8 / #0284c7) on clean #ffffff backdrop.
+ *   - No Net Structure: Pure splitting particle dots.
+ *   - Touch & Mouse Interactive: Dots split & repel on user touch/drag with spring return.
+ *   - Scroll Reactive: Scrolling accelerates dot wave dynamics.
  */
 export default function MobileAnimativeBg() {
   const mountRef = useRef(null)
@@ -20,8 +20,8 @@ export default function MobileAnimativeBg() {
 
     // 1. Three.js Scene Setup
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(50, width / height, 1, 2000)
-    camera.position.set(0, 140, 420)
+    const camera = new THREE.PerspectiveCamera(55, width / height, 1, 2000)
+    camera.position.set(0, 120, 380)
     camera.lookAt(0, 0, 0)
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -29,13 +29,15 @@ export default function MobileAnimativeBg() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     container.appendChild(renderer.domElement)
 
-    // 2. 3D Dots & Lines Grid Wave (Spacing: 35, Size: 3.0)
-    const spacing = 35
-    const cols = 24
-    const rows = 24
+    // 2. Pure Splitting Particle Dots Grid (No Net Lines!)
+    const cols = 28
+    const rows = 28
     const numParticles = cols * rows
+    const spacing = 32
 
-    const positions = new Float32Array(numParticles * 3)
+    const origPos = new Float32Array(numParticles * 3)
+    const currPos = new Float32Array(numParticles * 3)
+    const velPos = new Float32Array(numParticles * 3)
 
     let i = 0
     for (let r = 0; r < rows; r++) {
@@ -44,151 +46,150 @@ export default function MobileAnimativeBg() {
         const z = (r - rows / 2) * spacing
         const y = 0
 
-        positions[i * 3] = x
-        positions[i * 3 + 1] = y
-        positions[i * 3 + 2] = z
+        origPos[i * 3] = x
+        origPos[i * 3 + 1] = y
+        origPos[i * 3 + 2] = z
+
+        currPos[i * 3] = x
+        currPos[i * 3 + 1] = y
+        currPos[i * 3 + 2] = z
+
+        velPos[i * 3] = 0
+        velPos[i * 3 + 1] = 0
+        velPos[i * 3 + 2] = 0
         i++
       }
     }
 
     const geometry = new THREE.BufferGeometry()
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    geometry.setAttribute('position', new THREE.BufferAttribute(currPos, 3))
 
-    // Canvas Texture for crisp round dots (#ff8820)
+    // Canvas Texture for Light Blue (#38bdf8) Crisp Round Dots
     const canvasDot = document.createElement('canvas')
-    canvasDot.width = 32
-    canvasDot.height = 32
+    canvasDot.width = 64
+    canvasDot.height = 64
     const ctx = canvasDot.getContext('2d')
     ctx.beginPath()
-    ctx.arc(16, 16, 12, 0, Math.PI * 2)
-    ctx.fillStyle = '#ff8820'
+    ctx.arc(32, 32, 26, 0, Math.PI * 2)
+    ctx.fillStyle = '#38bdf8' // Light Blue
     ctx.fill()
 
     const dotTexture = new THREE.CanvasTexture(canvasDot)
 
     const material = new THREE.PointsMaterial({
-      color: 0xff8820,
-      size: 5.0,
+      color: 0x38bdf8, // Light Blue
+      size: 7.0,
       map: dotTexture,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.85,
       depthTest: true
     })
 
     const points = new THREE.Points(geometry, material)
     scene.add(points)
 
-    // 3. Grid Lines (showLines: true)
-    const lineIndices = []
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const current = r * cols + c
-        if (c < cols - 1) lineIndices.push(current, current + 1)
-        if (r < rows - 1) lineIndices.push(current, current + cols)
+    // 3. Touch & Mouse Interaction Tracking for Splitting Effect
+    const mouse2D = new THREE.Vector2(-9999, -9999)
+    const raycaster = new THREE.Raycaster()
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
+    const touchWorldPos = new THREE.Vector3(-9999, -9999, -9999)
+
+    const updatePointer = (clientX, clientY) => {
+      mouse2D.x = (clientX / window.innerWidth) * 2 - 1
+      mouse2D.y = -(clientY / window.innerHeight) * 2 + 1
+      raycaster.setFromCamera(mouse2D, camera)
+      raycaster.ray.intersectPlane(plane, touchWorldPos)
+    }
+
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY)
       }
     }
 
-    const lineGeometry = new THREE.BufferGeometry()
-    lineGeometry.setAttribute('position', geometry.getAttribute('position'))
-    lineGeometry.setIndex(lineIndices)
-
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0xff8820,
-      transparent: true,
-      opacity: 0.12
-    })
-
-    const lines = new THREE.LineSegments(lineGeometry, lineMaterial)
-    scene.add(lines)
-
-    // 4. Center Starburst Circle/Sphere (Rotates ONLY on user scroll)
-    const burstCount = 48
-    const burstPositions = new Float32Array(burstCount * 6)
-    for (let b = 0; b < burstCount; b++) {
-      const u = Math.random()
-      const v = Math.random()
-      const theta = u * 2.0 * Math.PI
-      const phi = Math.acos(2.0 * v - 1.0)
-      const r = 20 + Math.random() * 30
-
-      const dx = r * Math.sin(phi) * Math.cos(theta)
-      const dy = r * Math.sin(phi) * Math.sin(theta)
-      const dz = r * Math.cos(phi)
-
-      burstPositions[b * 6] = 0
-      burstPositions[b * 6 + 1] = 30
-      burstPositions[b * 6 + 2] = 0
-
-      burstPositions[b * 6 + 3] = dx
-      burstPositions[b * 6 + 4] = 30 + dy
-      burstPositions[b * 6 + 5] = dz
+    const handleMouseMove = (e) => {
+      updatePointer(e.clientX, e.clientY)
     }
 
-    const burstGeometry = new THREE.BufferGeometry()
-    burstGeometry.setAttribute('position', new THREE.BufferAttribute(burstPositions, 3))
+    const handleTouchEnd = () => {
+      touchWorldPos.set(-9999, -9999, -9999)
+    }
 
-    const burstMaterial = new THREE.LineBasicMaterial({
-      color: 0xff8820,
-      transparent: true,
-      opacity: 0.35
-    })
+    window.addEventListener('touchstart', handleTouchMove, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    window.addEventListener('touchend', handleTouchEnd, { passive: true })
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
 
-    const burstLines = new THREE.LineSegments(burstGeometry, burstMaterial)
-    scene.add(burstLines)
-
-    // 5. Scroll State Tracking: Circle rotates ONLY when user scrolls
-    let isScrolling = false
-    let scrollTimeout = null
-    let targetRotation = 0
+    // 4. Scroll Acceleration Tracking
+    let scrollVel = 0
+    let lastScrollY = window.scrollY
 
     const handleScroll = () => {
-      isScrolling = true
-      targetRotation += 0.03
-
-      if (scrollTimeout) clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        isScrolling = false
-      }, 150)
+      const delta = Math.abs(window.scrollY - lastScrollY)
+      scrollVel += delta * 0.008
+      lastScrollY = window.scrollY
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
 
-    // 6. Animation Loop (Lightweight & Smooth)
+    // 5. Animation & Particle Splitting Physics Loop
     let animationFrameId
     let count = 0
 
     const animate = () => {
-      count += 0.015
+      count += 0.018 + Math.min(scrollVel, 0.05)
+      scrollVel *= 0.92 // Decay scroll velocity
 
-      // Wave particle displacement
-      const positionAttr = geometry.getAttribute('position')
-      const posArr = positionAttr.array
+      const isDark = document.documentElement.classList.contains('dark')
+      material.color.setHex(isDark ? 0x06b6d4 : 0x0284c7) // Cyan in dark, Light Blue in light
 
-      let idx = 0
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const y = Math.sin(count + c * 0.25 + r * 0.2) * 8
-          posArr[idx * 3 + 1] = y
-          idx++
+      const posAttr = geometry.getAttribute('position')
+      const posArr = posAttr.array
+
+      for (let p = 0; p < numParticles; p++) {
+        const px = origPos[p * 3]
+        const py = origPos[p * 3 + 1]
+        const pz = origPos[p * 3 + 2]
+
+        // Ambient sine wave motion
+        const waveY = Math.sin(count + px * 0.02 + pz * 0.02) * 10
+
+        // Calculate distance to touch/mouse cursor for splitting repulsion
+        const dx = posArr[p * 3] - touchWorldPos.x
+        const dz = posArr[p * 3 + 2] - touchWorldPos.z
+        const distSq = dx * dx + dz * dz
+        const repelRadius = 140
+
+        if (distSq < repelRadius * repelRadius && distSq > 0.001) {
+          const dist = Math.sqrt(distSq)
+          const force = (1 - dist / repelRadius) * 22
+          velPos[p * 3] += (dx / dist) * force
+          velPos[p * 3 + 2] += (dz / dist) * force
+          velPos[p * 3 + 1] += force * 0.5 // Lift splitting dots on touch
         }
+
+        // Apply velocities & spring return to origin
+        velPos[p * 3] += (px - posArr[p * 3]) * 0.08
+        velPos[p * 3 + 1] += (waveY - posArr[p * 3 + 1]) * 0.08
+        velPos[p * 3 + 2] += (pz - posArr[p * 3 + 2]) * 0.08
+
+        velPos[p * 3] *= 0.85
+        velPos[p * 3 + 1] *= 0.85
+        velPos[p * 3 + 2] *= 0.85
+
+        posArr[p * 3] += velPos[p * 3]
+        posArr[p * 3 + 1] += velPos[p * 3 + 1]
+        posArr[p * 3 + 2] += velPos[p * 3 + 2]
       }
 
-      positionAttr.needsUpdate = true
-      lineGeometry.getAttribute('position').needsUpdate = true
-
-      // Rotate starburst sphere ONLY when user is scrolling!
-      if (isScrolling || Math.abs(burstLines.rotation.y - targetRotation) > 0.001) {
-        burstLines.rotation.y += (targetRotation - burstLines.rotation.y) * 0.1
-        burstLines.rotation.z += (targetRotation - burstLines.rotation.z) * 0.08
-      }
-
+      posAttr.needsUpdate = true
       renderer.render(scene, camera)
       animationFrameId = requestAnimationFrame(animate)
     }
 
     animate()
 
-    // 7. Window Resize Listener
+    // 6. Window Resize Listener
     const handleResize = () => {
       width = window.innerWidth
       height = window.innerHeight
@@ -199,19 +200,19 @@ export default function MobileAnimativeBg() {
     window.addEventListener('resize', handleResize, { passive: true })
 
     return () => {
+      window.removeEventListener('touchstart', handleTouchMove)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleResize)
-      if (scrollTimeout) clearTimeout(scrollTimeout)
       cancelAnimationFrame(animationFrameId)
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement)
       }
       geometry.dispose()
       material.dispose()
-      lineGeometry.dispose()
-      lineMaterial.dispose()
-      burstGeometry.dispose()
-      burstMaterial.dispose()
+      dotTexture.dispose()
       renderer.dispose()
     }
   }, [])
