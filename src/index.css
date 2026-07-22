@@ -1124,8 +1124,73 @@ section.visible {
 /* Projects Styles */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .project-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .project-content {
+    padding: 1.25rem 1rem !important;
+  }
+
+  .project-preview {
+    height: 160px !important;
+  }
+
+  .contact-grid,
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .contact-form-container,
+  .about-bio {
+    padding: 1.25rem !important;
+  }
+
+  section {
+    padding: 3.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container,
+  .nav-container {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .project-content {
+    padding: 1rem 0.75rem !important;
+  }
+
+  .project-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-link-btn.primary,
+  .google-sweep-hover-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .project-card {
