@@ -8,8 +8,8 @@
   /* ========================================= */
   /* LIGHT THEME VARIABLES (Default)           */
   /* ========================================= */
-  --bg: #ffffff;
-  --bg-offset: #f8f9fa;      
+  --bg: #FDFFF5;
+  --bg-offset: #F4F6EC;      
   --text: #3c4043;          
   --text-muted: #5f6368;     
   --text-bright: #202124;    
@@ -29,7 +29,7 @@
   --glow-opacity: 0.08;
 
   /* Card Styles */
-  --card-bg: rgba(255, 255, 255, 0.22);
+  --card-bg: rgba(253, 255, 245, 0.22);
   --card-shadow: 0 12px 25px rgba(32, 33, 36, 0.07), 0 1px 3px rgba(32, 33, 36, 0.05);
   --card-glow-mouse: rgba(26, 115, 232, 0.08);
 
@@ -154,7 +154,7 @@ body {
 }
 
 .bg-video-overlay.light {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(253, 255, 245, 0.55);
 }
 
 .bg-video-overlay.dark {
