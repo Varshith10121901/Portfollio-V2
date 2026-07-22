@@ -120,6 +120,10 @@ body {
   position: relative;
 }
 
+
+
+
+
 /* Scroll-Synced Video Background Container */
 .bg-video-container {
   position: fixed;
@@ -2057,3 +2061,36 @@ section.visible {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
 }
+
+/* Intro / preloader screen ------------------------------------------- */
+
+.intro-word-grey {
+  color: var(--text-muted, #6b6b74); /* neutral grey base state */
+}
+
+.intro-word-accent {
+  background: linear-gradient(90deg, var(--primary, #8b5cf6), var(--secondary, #22d3ee));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.intro-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.25) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-screen * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
