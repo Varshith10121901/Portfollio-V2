@@ -45,9 +45,19 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         <a href="#home" className="nav-logo">
-          <svg className="terminal-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="4 17 10 11 4 5" />
-            <line x1="12" y1="19" x2="20" y2="19" className="terminal-cursor" />
+          <svg className="dragon-logo-svg" viewBox="0 0 64 64" fill="none" style={{ width: '28px', height: '28px' }}>
+            <path d="M 32 4 C 36 10, 44 12, 50 8 C 45 16, 48 22, 56 24 C 48 26, 44 32, 42 40 C 38 32, 34 26, 32 24 Z" fill="url(#navDragonGrad)"/>
+            <path d="M 32 4 C 28 10, 20 12, 14 8 C 19 16, 16 22, 8 24 C 16 26, 20 32, 22 40 C 26 32, 30 26, 32 24 Z" fill="url(#navDragonGrad)"/>
+            <path d="M 32 20 L 40 32 L 48 34 L 38 42 L 32 58 L 26 42 L 16 34 L 24 32 Z" fill="url(#navDragonGrad)"/>
+            <path d="M 32 30 L 36 44 L 32 52 L 28 44 Z" fill="#ffffff" opacity="0.9"/>
+            <circle cx="26" cy="28" r="2.5" fill="#22d3ee"/>
+            <circle cx="38" cy="28" r="2.5" fill="#22d3ee"/>
+            <defs>
+              <linearGradient id="navDragonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="var(--primary)" />
+                <stop offset="100%" stopColor="var(--secondary)" />
+              </linearGradient>
+            </defs>
           </svg>
           <span className="vk-logo-text">Varshith</span>
         </a>
