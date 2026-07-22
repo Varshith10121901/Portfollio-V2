@@ -328,7 +328,7 @@ export default function About() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {/* Google Hackathon */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: '1rem' }}>
+                <div className="cert-item-row">
                   <div>
                     <h4 style={{ fontSize: '1.02rem', color: 'var(--text-bright)', marginBottom: '0.25rem' }}>
                       Google GDG Hackathon Certificate
@@ -342,15 +342,14 @@ export default function About() {
                       title: 'Google GDG Hackathon Certificate',
                       image: '/gdg_hackathon_certificate.png'
                     })}
-                    className="project-link-btn primary"
-                    style={{ fontSize: '0.7rem', padding: '0.4rem 0.8rem', whiteSpace: 'nowrap', flexShrink: 0 }}
+                    className="cert-preview-btn"
                   >
                     PREVIEW
                   </button>
                 </div>
 
                 {/* OpenAI Hackathon */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: '1rem' }}>
+                <div className="cert-item-row">
                   <div>
                     <h4 style={{ fontSize: '1.02rem', color: 'var(--text-bright)', marginBottom: '0.25rem' }}>
                       OpenAI Hackathon Certificate
@@ -364,15 +363,14 @@ export default function About() {
                       title: 'OpenAI Hackathon Certificate',
                       image: 'https://cdn1.ccbp.in/misc/openai-rg-c/IZXED27R4U.png'
                     })}
-                    className="project-link-btn primary"
-                    style={{ fontSize: '0.7rem', padding: '0.4rem 0.8rem', whiteSpace: 'nowrap', flexShrink: 0 }}
+                    className="cert-preview-btn"
                   >
                     PREVIEW
                   </button>
                 </div>
 
                  {/* Agentic AI Day */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="cert-item-row">
                   <div>
                     <h4 style={{ fontSize: '1.02rem', color: 'var(--text-bright)', marginBottom: '0.25rem' }}>
                       Agentic AI Day Certificate
@@ -386,8 +384,7 @@ export default function About() {
                       title: 'Agentic AI Day Certificate',
                       image: '/google_cloud_hackathon.png'
                     })}
-                    className="project-link-btn primary"
-                    style={{ fontSize: '0.7rem', padding: '0.4rem 0.8rem', whiteSpace: 'nowrap', flexShrink: 0 }}
+                    className="cert-preview-btn"
                   >
                     PREVIEW
                   </button>
