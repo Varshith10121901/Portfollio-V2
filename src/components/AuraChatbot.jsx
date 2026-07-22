@@ -490,7 +490,7 @@ export default function AuraChatbot() {
       ref={chatbotRef}
       className={`aura-chatbot-container ${isOpen ? 'expanded' : 'collapsed'}`}
     >
-      <div className="glow-card-inner aura-chatbot-inner">
+      <div className="aura-chatbot-inner">
         
         {/* Expanded Chat Header */}
         {isOpen && (
