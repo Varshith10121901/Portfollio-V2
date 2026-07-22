@@ -49,9 +49,8 @@ function App() {
         fontSize: '0.9rem',
         color: 'var(--text-muted)'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', padding: '0 1.5rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 1.5rem' }}>
           <p>© {new Date().getFullYear()} Varshith. All rights reserved.</p>
-          <p>Built with React, R3F & GSAP</p>
         </div>
       </footer>
     </>
