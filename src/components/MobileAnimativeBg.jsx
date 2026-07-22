@@ -2,11 +2,10 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 /**
- * Mobile Interactive Splitting Dots Background:
- *   - Light Mode Color: Light Blue (#38bdf8 / #0284c7) on clean #ffffff backdrop.
- *   - No Net Structure: Pure splitting particle dots.
- *   - Touch & Mouse Interactive: Dots split & repel on user touch/drag with spring return.
- *   - Scroll Reactive: Scrolling accelerates dot wave dynamics.
+ * Ultra-Lightweight & Silky Smooth Mobile Splitting Dots Background:
+ *   - Minimal Dot Count: Reduced to 144 subtle dots (spacing: 56) for a clean, spacious mobile UI.
+ *   - Smooth Splitting Physics: Smooth lerp interpolation & gentle spring return (zero stutter).
+ *   - Elegant Light Blue (#38bdf8 / #0284c7) theme with subtle opacity.
  */
 export default function MobileAnimativeBg() {
   const mountRef = useRef(null)
@@ -20,30 +19,30 @@ export default function MobileAnimativeBg() {
 
     // 1. Three.js Scene Setup
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(55, width / height, 1, 2000)
-    camera.position.set(0, 120, 380)
+    const camera = new THREE.PerspectiveCamera(50, width / height, 1, 1500)
+    camera.position.set(0, 100, 360)
     camera.lookAt(0, 0, 0)
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" })
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     container.appendChild(renderer.domElement)
 
-    // 2. Pure Splitting Particle Dots Grid (No Net Lines!)
-    const cols = 28
-    const rows = 28
+    // 2. Minimal & Spacious Particle Grid (Spacing: 56, ~12x12 = 144 Dots)
+    const spacing = 56
+    const cols = 12
+    const rows = 12
     const numParticles = cols * rows
-    const spacing = 32
 
     const origPos = new Float32Array(numParticles * 3)
     const currPos = new Float32Array(numParticles * 3)
-    const velPos = new Float32Array(numParticles * 3)
+    const targetPos = new Float32Array(numParticles * 3)
 
     let i = 0
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        const x = (c - cols / 2) * spacing
-        const z = (r - rows / 2) * spacing
+        const x = (c - cols / 2 + 0.5) * spacing
+        const z = (r - rows / 2 + 0.5) * spacing
         const y = 0
 
         origPos[i * 3] = x
@@ -54,9 +53,9 @@ export default function MobileAnimativeBg() {
         currPos[i * 3 + 1] = y
         currPos[i * 3 + 2] = z
 
-        velPos[i * 3] = 0
-        velPos[i * 3 + 1] = 0
-        velPos[i * 3 + 2] = 0
+        targetPos[i * 3] = x
+        targetPos[i * 3 + 1] = y
+        targetPos[i * 3 + 2] = z
         i++
       }
     }
@@ -64,31 +63,31 @@ export default function MobileAnimativeBg() {
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.BufferAttribute(currPos, 3))
 
-    // Canvas Texture for Light Blue (#38bdf8) Crisp Round Dots
+    // Canvas Texture for Crisp Light Blue Round Dots (#38bdf8)
     const canvasDot = document.createElement('canvas')
-    canvasDot.width = 64
-    canvasDot.height = 64
+    canvasDot.width = 32
+    canvasDot.height = 32
     const ctx = canvasDot.getContext('2d')
     ctx.beginPath()
-    ctx.arc(32, 32, 26, 0, Math.PI * 2)
-    ctx.fillStyle = '#38bdf8' // Light Blue
+    ctx.arc(16, 16, 10, 0, Math.PI * 2)
+    ctx.fillStyle = '#38bdf8'
     ctx.fill()
 
     const dotTexture = new THREE.CanvasTexture(canvasDot)
 
     const material = new THREE.PointsMaterial({
-      color: 0x38bdf8, // Light Blue
-      size: 7.0,
+      color: 0x38bdf8,
+      size: 4.5,
       map: dotTexture,
       transparent: true,
-      opacity: 0.85,
-      depthTest: true
+      opacity: 0.5,
+      depthTest: false
     })
 
     const points = new THREE.Points(geometry, material)
     scene.add(points)
 
-    // 3. Touch & Mouse Interaction Tracking for Splitting Effect
+    // 3. Touch & Mouse Interaction Tracking for Smooth Splitting Repulsion
     const mouse2D = new THREE.Vector2(-9999, -9999)
     const raycaster = new THREE.Raycaster()
     const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
@@ -126,19 +125,19 @@ export default function MobileAnimativeBg() {
 
     const handleScroll = () => {
       const delta = Math.abs(window.scrollY - lastScrollY)
-      scrollVel += delta * 0.008
+      scrollVel += delta * 0.005
       lastScrollY = window.scrollY
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
 
-    // 5. Animation & Particle Splitting Physics Loop
+    // 5. Silky-Smooth Animation & Interpolation Loop
     let animationFrameId
     let count = 0
 
     const animate = () => {
-      count += 0.018 + Math.min(scrollVel, 0.05)
-      scrollVel *= 0.92 // Decay scroll velocity
+      count += 0.012 + Math.min(scrollVel, 0.03)
+      scrollVel *= 0.9
 
       const isDark = document.documentElement.classList.contains('dark')
       material.color.setHex(isDark ? 0x06b6d4 : 0x0284c7) // Cyan in dark, Light Blue in light
@@ -151,35 +150,37 @@ export default function MobileAnimativeBg() {
         const py = origPos[p * 3 + 1]
         const pz = origPos[p * 3 + 2]
 
-        // Ambient sine wave motion
-        const waveY = Math.sin(count + px * 0.02 + pz * 0.02) * 10
+        // Ambient sine wave floating
+        const waveY = Math.sin(count + px * 0.015 + pz * 0.015) * 6
 
-        // Calculate distance to touch/mouse cursor for splitting repulsion
+        // Calculate smooth distance splitting repulsion
         const dx = posArr[p * 3] - touchWorldPos.x
         const dz = posArr[p * 3 + 2] - touchWorldPos.z
         const distSq = dx * dx + dz * dz
-        const repelRadius = 140
+        const repelRadius = 120
+
+        let pushX = 0
+        let pushZ = 0
+        let pushY = 0
 
         if (distSq < repelRadius * repelRadius && distSq > 0.001) {
           const dist = Math.sqrt(distSq)
-          const force = (1 - dist / repelRadius) * 22
-          velPos[p * 3] += (dx / dist) * force
-          velPos[p * 3 + 2] += (dz / dist) * force
-          velPos[p * 3 + 1] += force * 0.5 // Lift splitting dots on touch
+          const factor = (1 - dist / repelRadius)
+          const force = factor * factor * 35 // Smooth quadratic force
+          pushX = (dx / dist) * force
+          pushZ = (dz / dist) * force
+          pushY = force * 0.4
         }
 
-        // Apply velocities & spring return to origin
-        velPos[p * 3] += (px - posArr[p * 3]) * 0.08
-        velPos[p * 3 + 1] += (waveY - posArr[p * 3 + 1]) * 0.08
-        velPos[p * 3 + 2] += (pz - posArr[p * 3 + 2]) * 0.08
+        // Set target position
+        targetPos[p * 3] = px + pushX
+        targetPos[p * 3 + 1] = waveY + pushY
+        targetPos[p * 3 + 2] = pz + pushZ
 
-        velPos[p * 3] *= 0.85
-        velPos[p * 3 + 1] *= 0.85
-        velPos[p * 3 + 2] *= 0.85
-
-        posArr[p * 3] += velPos[p * 3]
-        posArr[p * 3 + 1] += velPos[p * 3 + 1]
-        posArr[p * 3 + 2] += velPos[p * 3 + 2]
+        // Silky-smooth linear interpolation (lerp = 0.1) for zero stutter
+        posArr[p * 3] += (targetPos[p * 3] - posArr[p * 3]) * 0.1
+        posArr[p * 3 + 1] += (targetPos[p * 3 + 1] - posArr[p * 3 + 1]) * 0.1
+        posArr[p * 3 + 2] += (targetPos[p * 3 + 2] - posArr[p * 3 + 2]) * 0.1
       }
 
       posAttr.needsUpdate = true
