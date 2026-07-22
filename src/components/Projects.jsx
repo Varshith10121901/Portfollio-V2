@@ -178,55 +178,6 @@ export default function Projects() {
         { name: 'CSS3', icon: <CSSLogo style={{ width: 14, height: 14 }} /> },
         { name: 'Gemini AI', icon: <GeminiLogo style={{ width: 14, height: 14 }} /> }
       ]
-    },
-    {
-      title: 'OpenAI x NxtWave Regional Buildathon',
-      date: '2024',
-      live: false,
-      description: 'An AI application built during the OpenAI Academy x NxtWave Regional Buildathon – Karnataka, demonstrating rapid LLM agent orchestration and generative workflow engineering.',
-      points: [
-        'Selected participant in the OpenAI Academy x NxtWave Regional Buildathon.',
-        'Engineered custom prompt pipelines and multi-step agent reasoning workflows.',
-        'Rapid full-stack deployment with real-time API integrations.'
-      ],
-      image: '/projects/openai X next wave.png',
-      linkDemo: '#',
-      linkRepo: 'https://github.com/Varshith10121901',
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20, color: 'var(--secondary)' }}>
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 8v8M8 12h8" />
-        </svg>
-      ),
-      logos: [
-        { name: 'Python', icon: <PythonLogo style={{ width: 14, height: 14 }} /> },
-        { name: 'Gemini AI', icon: <GeminiLogo style={{ width: 14, height: 14 }} /> },
-        { name: 'FastAPI', icon: <FastAPILogo style={{ width: 14, height: 14 }} /> }
-      ]
-    },
-    {
-      title: 'Google Cloud Agentic AI Hackathon',
-      date: '2025',
-      live: false,
-      description: 'Built during the Google Cloud Agentic AI Day hackathon, showcasing autonomous agent orchestration, vector storage, and serverless Cloud Run container deployments.',
-      points: [
-        'Built autonomous agent workflows on Google Cloud Platform.',
-        'Integrated vector embeddings for fast semantic knowledge retrieval.',
-        'Recognized GDG Hackathon achievement certificate.'
-      ],
-      image: '/projects/google cloud hackathon.png',
-      linkDemo: '#',
-      linkRepo: 'https://github.com/Varshith10121901',
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20, color: 'var(--secondary)' }}>
-          <path d="M18 10h-.08A7 7 0 0 0 4.75 8.75a6 6 0 0 0 .25 11.25H18a5 5 0 0 0 0-10z" />
-        </svg>
-      ),
-      logos: [
-        { name: 'Python', icon: <PythonLogo style={{ width: 14, height: 14 }} /> },
-        { name: 'GCP', icon: <GCPLogo style={{ width: 14, height: 14 }} /> },
-        { name: 'Docker', icon: <DockerLogo style={{ width: 14, height: 14 }} /> }
-      ]
     }
   ]
 
