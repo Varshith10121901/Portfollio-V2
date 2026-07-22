@@ -30,24 +30,38 @@ function Counter({ value, suffix = '', duration = 1.5 }) {
     const end = parseInt(value, 10)
     if (isNaN(end)) return
 
-    let start = 0
-    const totalMilliseconds = duration * 1000
-    const incrementTime = Math.max(Math.floor(totalMilliseconds / end), 15)
+    let startTime = null
+    let rafId = null
 
-    const timer = setInterval(() => {
-      start += 1
-      setCount(start)
-      if (start >= end) {
-        clearInterval(timer)
+    const update = (timestamp) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
+      const current = Math.floor(progress * end)
+      setCount(current)
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(update)
+      } else {
         setCount(end)
       }
-    }, incrementTime)
+    }
 
-    return () => clearInterval(timer)
+    rafId = requestAnimationFrame(update)
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [value, duration, isInView])
 
   return (
-    <span ref={ref}>
+    <span
+      ref={ref}
+      style={{
+        display: 'inline-block',
+        fontVariantNumeric: 'tabular-nums',
+        minWidth: '2.4ch',
+        textAlign: 'left'
+      }}
+    >
       {count}
       {suffix}
     </span>
@@ -222,7 +236,7 @@ export default function About() {
               <div className="about-stats" style={{ marginTop: '1.5rem' }}>
                 <div className="stat-item">
                   <span className="stat-num text-gradient-purple-cyan">
-                    <Counter value="85" suffix="%" />
+                    <Counter value="96" suffix="%" />
                   </span>
                   <span className="stat-label">Model Accuracy</span>
                 </div>
